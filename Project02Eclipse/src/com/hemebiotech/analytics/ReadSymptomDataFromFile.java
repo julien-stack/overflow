@@ -22,8 +22,15 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 		this.filepath = filepath;
 	}
 	
+	/**
+	 * method for read every line from data source
+	 * 
+	 * @author 
+	 * @return a raw listing of all Symptoms obtained from a data source, duplicates are possible/probable
+	 * @throws Exception 
+	 */
 	@Override
-	public List<String> GetSymptoms() {
+	public List<String> getSymptoms() throws Exception {
 		ArrayList<String> result = new ArrayList<String>();
 		
 		if (filepath != null) {
@@ -37,11 +44,12 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 				}
 				reader.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				throw new Exception("Unable to create symptom list");
 			}
 		}
-		
+	
 		return result;
 	}
-
+	
+	
 }

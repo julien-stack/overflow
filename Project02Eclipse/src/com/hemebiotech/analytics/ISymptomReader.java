@@ -11,10 +11,15 @@ import java.util.List;
  * 
  */
 public interface ISymptomReader {
+	
 	/**
 	 * If no data is available, return an empty List
 	 * 
+	 * @author 
 	 * @return a raw listing of all Symptoms obtained from a data source, duplicates are possible/probable
+	 * @throws Exception 
 	 */
-	List<String> GetSymptoms ();
+	List<String> getSymptoms () throws Exception;
+
+	
 }
