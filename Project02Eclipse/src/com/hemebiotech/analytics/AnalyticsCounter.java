@@ -1,43 +1,68 @@
 package com.hemebiotech.analytics;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
-public class AnalyticsCounter {
-	private static int headacheCount = 0;	// initialize to 0
-	private static int rashCount = 0;		// initialize to 0
-	private static int pupilCount = 0;		// initialize to 0
+	public class AnalyticsCounter extends ReadSymptomDataFromFile implements IAnalyticsCounter{
 	
-	public static void main(String args[]) throws Exception {
-		// first get input
-		BufferedReader reader = new BufferedReader (new FileReader("symptoms.txt"));
-		String line = reader.readLine();
+	
+		public AnalyticsCounter(String filepath) {
+			super(filepath);
+		}
 
-		int i = 0;	// set i to 0
-		int headCount = 0;	// counts headaches
-		while (line != null) {
-			i++;	// increment i
-			System.out.println("symptom from file: " + line);
-			if (line.equals("headache")) {
-				headCount++;
-				System.out.println("number of headaches: " + headCount);
+		/**
+		 * create ordered map an count by type of symptoms
+		 * 
+		 * @author julien.C
+		 * @param String List
+		 * @throws Exception 
+		 */
+		@Override 
+		public Map<String, Integer> createMap(List<String> resultList) throws Exception{
+		
+			Map<String, Integer> map = new TreeMap<>();
+			try {
+				for (String stringUt : resultList) {
+					if(!stringUt.isEmpty()) {
+						if (map.containsKey(stringUt)) {
+							 map.replace(stringUt,map.get(stringUt)+1 );
+						 } else {
+							 map.put(stringUt,1);
+						 }	 
+					} 
+				 }
+			} catch (Exception e) {
+				throw new Exception ("Can not create map");
 			}
-			else if (line.equals("rush")) {
-				rashCount++;
-			}
-			else if (line.contains("pupils")) {
-				pupilCount++;
-			}
-
-			line = reader.readLine();	// get another symptom
+		return map;
+		
 		}
 		
-		// next generate output
-		FileWriter writer = new FileWriter ("result.out");
-		writer.write("headache: " + headacheCount + "\n");
-		writer.write("rash: " + rashCount + "\n");
-		writer.write("dialated pupils: " + pupilCount + "\n");
-		writer.close();
-	}
+		/**
+		 * method for create a outpout file with symptom and number of symptom
+		 * 
+		 * @param map of symtoms and number symptoms
+		 * @throws Exception 
+		 */
+		@Override 
+		public void createResultFile(Map <String, Integer> map) throws Exception {
+			
+			FileWriter writer = new FileWriter ("result.out");
+			try {	
+				for (Map.Entry<String, Integer> entry : map.entrySet()) {
+					writer.write(entry.getKey() +  "=" + entry.getValue() + "\n" );
+					
+				}
+			} catch (IOException e) {
+				throw new Exception("Can not insert data into the output file");
+			
+			} finally {
+				writer.close();
+			}
+			
+		}
 }
