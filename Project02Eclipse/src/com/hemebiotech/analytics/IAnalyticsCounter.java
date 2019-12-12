@@ -8,6 +8,7 @@ public interface IAnalyticsCounter {
 	
 	
 	
+<<<<<<< HEAD
 	
 	
 	/**
@@ -17,6 +18,8 @@ public interface IAnalyticsCounter {
 	 * @return Map<String,Integer>
 	 * @throws Exception 
 	 */
+=======
+>>>>>>> branch 'develop_symptom' of https://github.com/julien-stack/overflow
 	List<String> getSymptoms () throws Exception;
 	/**
 	 * Method for create a map from a list of string value.
