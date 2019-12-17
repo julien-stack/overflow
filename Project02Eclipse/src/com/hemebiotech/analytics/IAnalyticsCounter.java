@@ -8,19 +8,14 @@ public interface IAnalyticsCounter {
 	
 	
 	
-<<<<<<< HEAD
-	
-	
 	/**
-	 * Method for create a list of string from input file
+	 * Method for create a list of symptoms from input text file.
 	 * 
-	 * @param resultList
-	 * @return Map<String,Integer>
-	 * @throws Exception 
+	 * @return
+	 * @throws Exception
 	 */
-=======
->>>>>>> branch 'develop_symptom' of https://github.com/julien-stack/overflow
 	List<String> getSymptoms () throws Exception;
+
 	/**
 	 * Method for create a map from a list of string value.
 	 * 
